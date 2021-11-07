@@ -1,22 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function HomePage({ navigation }: { navigation: any }) {
+export default function SearchPage({ navigation }: { navigation: any }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>CityPop</Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+      <TouchableOpacity onPress={() => navigation.popToTop()}>
         <View style={styles.button}>
           <Text style={styles.buttonText}>SEARCH BY CITY</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => ""}>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>SEARCH BY COUNTRY</Text>
         </View>
       </TouchableOpacity>
 
@@ -42,7 +35,7 @@ const styles = StyleSheet.create({
 
   button: {
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: 'blue',
     marginBottom: 50,
   },
 
