@@ -1,20 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+// Homepage GUI 
 export default function HomePage({ navigation }: { navigation: any }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>CityPop</Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Search', { choice: 'CITY' })}>
         <View style={styles.button}>
           <Text style={styles.buttonText}>SEARCH BY CITY</Text>
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => ""}>
+      <TouchableOpacity onPress={() => navigation.navigate('Search', { choice: 'COUNTRY' })}>
         <View style={styles.button}>
           <Text style={styles.buttonText}>SEARCH BY COUNTRY</Text>
         </View>

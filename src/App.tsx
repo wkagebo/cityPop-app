@@ -8,13 +8,14 @@ import SearchPage from './pages/SearchPage';
 
 const Stack = createNativeStackNavigator();
 
+// Main function, which navigates between the app screens. 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="CityPop"
       >
-        <Stack.Screen name="Home" component={HomePage} />
+        <Stack.Screen name="CityPop" component={HomePage} />
         <Stack.Screen name="Search" component={SearchPage} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,20 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export default function SearchPage({ navigation }: { navigation: any }) {
+export default function SearchPage({ navigation, route }: { navigation: any, route: any }) {
+  // initial search page GUI before search has been made
+  const choice = route.params.choice;
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>CityPop</Text>
-
-      <TouchableOpacity onPress={() => navigation.popToTop()}>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>SEARCH BY CITY</Text>
-        </View>
-      </TouchableOpacity>
-
+    <KeyboardAwareScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+      <Text style={styles.title}>SEARCH BY {choice}</Text>
+      <View>
+        <TextInput
+          style={styles.searchInput}
+          placeholder={"Enter a " + (choice == 'CITY' ? "city" : "country")}
+        />
+        <TouchableOpacity onPress={() => ""}>
+          <View style={styles.searchButton}>
+            <Text style={styles.buttonText}>SEARCH</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
       <StatusBar style="auto" />
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -28,15 +35,22 @@ const styles = StyleSheet.create({
 
   title: {
     flex: 1,
-    fontSize: 50,
+    fontSize: 30,
     fontWeight: 'bold',
     marginTop: 80,
   },
 
-  button: {
+  searchButton: {
     alignItems: 'center',
     backgroundColor: 'blue',
-    marginBottom: 50,
+    marginBottom: 300,
+  },
+
+  searchInput: {
+    height: 41,
+    margin: 11,
+    borderWidth: 1,
+    padding: 9
   },
 
   buttonText: {
