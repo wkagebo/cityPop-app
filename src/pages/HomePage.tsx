@@ -8,8 +8,8 @@ export default function HomePage({ navigation }: { navigation: any }) {
     <View style={styles.container}>
       <Text style={styles.title}>CityPop</Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Search', { choice: 'CITY' })}>
-        <View style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Search', { choice: 'CITY' })}>
+        <View >
           <Text style={styles.buttonText}>SEARCH BY CITY</Text>
         </View>
       </TouchableOpacity>
@@ -30,26 +30,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
+    //justifyContent: 'center',
   },
 
   title: {
-    flex: 1,
+    //flex: 1,
     fontSize: 50,
     fontWeight: 'bold',
     marginTop: 80,
+    marginBottom: 100,
   },
 
   button: {
     alignItems: 'center',
     backgroundColor: 'red',
-    marginBottom: 50,
+    marginBottom: 5,
+    width: 350,
+    height: 50,
+    borderWidth: 2,
+    borderColor: 'black'
   },
 
   buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 15,
     padding: 15,
-    fontFamily: 'Arial'
+    fontFamily: 'Arial',
+    fontWeight: 'bold',
+    //borderWidth: 4,
+    //borderColor: 'black'
   }
 });

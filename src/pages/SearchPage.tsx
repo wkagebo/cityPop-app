@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput, ActivityIndicator } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export default function SearchPage({ route }: { route: any }) {
+export default function SearchPage({ navigation, route }: { navigation: any, route: any }) {
 
   // Initialize state variables
   const [searchString, setSearchString] = useState('');
   const [fetching, setFetching] = useState(false);
   const [fetched, setFetched] = useState(false);
   const [result, setResult] = useState<null | { population: number[], name: string[] }[]>(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const choice = route.params.choice;
 
@@ -43,11 +44,10 @@ export default function SearchPage({ route }: { route: any }) {
         setFetched(true);
         setResult(json.geonames);
 
-        if (result != null) // if search has happened
-          if (!result.length) { // If search returns 0 results
-            setFetched(false);
-            throw new Error('No results were found :(')
-          }
+        if (json.totalResultsCount == 0 || searchString == '') { // If search returns 0 results
+          setFetched(false);
+          setErrorMessage(`You need to enter something valid`);
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -71,13 +71,14 @@ export default function SearchPage({ route }: { route: any }) {
           <TextInput
             style={styles.searchInput}
             placeholder={"Enter a " + (choice == 'CITY' ? "city" : "country")}
-            onChangeText={(searchString) => setSearchString(searchString)}
+            onChangeText={(input) => setSearchString(input)}
           />
           <TouchableOpacity onPress={() => searchButtonPressed()}>
             <View style={styles.searchButton}>
               <Text style={styles.buttonText}>SEARCH</Text>
             </View>
           </TouchableOpacity>
+          <Text>{errorMessage}</Text>
         </View>
         <StatusBar style="auto" />
       </KeyboardAwareScrollView>
