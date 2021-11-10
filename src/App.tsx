@@ -1,6 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from './pages/HomePage';
@@ -13,23 +11,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        screenOptions={{ headerTitle: '' }}
         initialRouteName="CityPop"
       >
-        <Stack.Screen name="CityPop" component={HomePage} />
+        <Stack.Screen name="CityPop" options={{ headerTitle: 'CityPop', headerShown: false }} component={HomePage} />
         <Stack.Screen name="Search" component={SearchPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 
 

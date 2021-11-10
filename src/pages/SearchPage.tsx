@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, ActivityIndicator, Image } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function SearchPage({ navigation, route }: { navigation: any, route: any }) {
@@ -46,7 +46,7 @@ export default function SearchPage({ navigation, route }: { navigation: any, rou
 
         if (json.totalResultsCount == 0 || searchString == '') { // If search returns 0 results
           setFetched(false);
-          setErrorMessage(`You need to enter something valid`);
+          setErrorMessage(`You need to enter something valid!`);
         }
       })
       .catch((error) => {
@@ -62,7 +62,6 @@ export default function SearchPage({ navigation, route }: { navigation: any, rou
     setSearchString(cityName);
   }
 
-
   if (!fetching && !fetched) { // display search bar and search button 
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
@@ -74,11 +73,13 @@ export default function SearchPage({ navigation, route }: { navigation: any, rou
             onChangeText={(input) => setSearchString(input)}
           />
           <TouchableOpacity onPress={() => searchButtonPressed()}>
-            <View style={styles.searchButton}>
-              <Text style={styles.buttonText}>SEARCH</Text>
+            <View style={styles.view}>
+              <Image style={styles.searchLogo} source={require('../assets/search_logo.png')} />
             </View>
           </TouchableOpacity>
-          <Text>{errorMessage}</Text>
+          <View style={styles.view}>
+            <Text style={styles.errorMessage}>{errorMessage}</Text>
+          </View>
         </View>
         <StatusBar style="auto" />
       </KeyboardAwareScrollView>
@@ -86,7 +87,9 @@ export default function SearchPage({ navigation, route }: { navigation: any, rou
   } else if (fetching) { // display loading circle while app is fetching results 
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-        <ActivityIndicator />
+        <View style={styles.searchingWheel}>
+          <ActivityIndicator style={styles.view} />
+        </View>
         <StatusBar style="auto" />
       </KeyboardAwareScrollView>
     );
@@ -104,9 +107,9 @@ export default function SearchPage({ navigation, route }: { navigation: any, rou
           )
         } else { // if city search 
           return (
-            <View key={keyValue}>
-              <Text>Population</Text>
-              <Text>{value.population}</Text>
+            <View key={keyValue} style={styles.population}>
+              <Text style={{ marginTop: 10, marginBottom: 10, fontWeight: 'bold' }}>Population</Text>
+              <Text style={{ fontSize: 30 }}>{value.population.toLocaleString().replaceAll(',', ' ')}</Text>
             </View>
           )
         }
@@ -122,27 +125,51 @@ export default function SearchPage({ navigation, route }: { navigation: any, rou
 }
 
 const styles = StyleSheet.create({
+  searchingWheel: {
+    marginTop: 200,
+  },
+
+  view: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  errorMessage: {
+    marginTop: 10,
+    fontFamily: 'Arial',
+    color: 'red',
+  },
+
+  circle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   title: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginBottom: 50,
+    marginTop: 80,
+    marginBottom: 100
   },
 
-  searchButton: {
-    alignItems: 'center',
-    backgroundColor: 'green',
-    marginBottom: 300,
+  searchLogo: {
+    width: 50,
+    height: 50
   },
 
   searchInput: {
-    height: 41,
+    height: 50,
+    width: 350,
     margin: 11,
     borderWidth: 1,
     padding: 9
@@ -150,15 +177,29 @@ const styles = StyleSheet.create({
 
   button: {
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: '#5DADE2',
     marginBottom: 5,
+    width: 350,
+    height: 50,
+    borderWidth: 2,
+    borderColor: '#2874A6'
   },
 
   buttonText: {
-    color: 'white',
-    fontSize: 16,
+    color: '#154360',
+    fontSize: 15,
     padding: 15,
-    fontFamily: 'Arial'
+    fontFamily: 'Arial',
+    fontWeight: 'bold'
+  },
+
+  population: {
+    alignItems: 'center',
+    backgroundColor: '#5DADE2',
+    borderColor: '#2874A6',
+    width: 350,
+    height: 100,
+    borderWidth: 4
   }
 });
 
