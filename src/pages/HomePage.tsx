@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     //flex: 1,
     fontSize: 30,
     fontWeight: 'bold',
-    marginTop: 80,
+    marginTop: 140,
     marginBottom: 100
   },
 
@@ -49,9 +49,8 @@ const styles = StyleSheet.create({
 
   buttonText: {
     color: '#154360',
-    fontSize: 15,
+    fontSize: 13,
     padding: 15,
-    fontFamily: 'Arial',
     fontWeight: 'bold'
   }
 });

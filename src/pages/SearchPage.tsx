@@ -109,7 +109,7 @@ export default function SearchPage({ navigation, route }: { navigation: any, rou
           return (
             <View key={keyValue} style={styles.population}>
               <Text style={{ marginTop: 10, marginBottom: 10, fontWeight: 'bold' }}>Population</Text>
-              <Text style={{ fontSize: 30 }}>{value.population.toLocaleString().replaceAll(',', ' ')}</Text>
+              <Text style={{ fontSize: 30 }}>{value.population}</Text>
             </View>
           )
         }
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
 
   errorMessage: {
     marginTop: 10,
-    fontFamily: 'Arial',
     color: 'red',
   },
 
@@ -187,9 +186,8 @@ const styles = StyleSheet.create({
 
   buttonText: {
     color: '#154360',
-    fontSize: 15,
+    fontSize: 13,
     padding: 15,
-    fontFamily: 'Arial',
     fontWeight: 'bold'
   },
 
